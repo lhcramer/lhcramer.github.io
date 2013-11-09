@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>BigBuck's Retail Partners</title>
+
+ <style type="text/css">
+      html { height: 80% }
+      body { height: 80%; margin: 50px; padding: 10px; background-color: rgb(224, 220, 201); 
+			font-family: Arial, Helvetica, sans-serif;
+	  }
+      #map_canvas { height: 80%, width: 60% }
+	  h1 {font-size: 2em;
+			color: rgb(1, 79, 165);       <!--(73, 96, 67)-->
+			}
+	h2	{font-size: 1.2em;
+		color: rgb(1, 79, 165);          <!--(73, 96, 67)-->
+		}
+	#about	{color: rgb(1, 92, 192);  <!--(83, 106, 77)-->
+			}
+	#footer {font-size: 0.8em; font-style: italic; 
+		padding: 5px 0 3px 0; text-align: center;}	
+		#footer hr {color: rgb(245, 245, 245); width: 55%;}
+		a:link	{text-decoration: none; color: rgb(73, 96, 67);}    <!-- (107, 68, 29) -->
+		a:visited	{text-decoration: none; color: black;}
+		a:hover	{color:black; text-decoration: underline;}
+		a:active	{text-decoration:none;}		
+			
+    </style>
+
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+<script type="text/javascript" 
+
+src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAqoXYBNTdcXEQw83s0t328ySTcYXIZ9Ks&sensor=false">
+
+</script>
+   
+ <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {        
+		    center: new google.maps.LatLng(37.605000, -122.217095),
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+
+BufferZone = new google.maps.KmlLayer('https://sites.google.com/site/kmlfiles7/bufferzones/Buffer_Zone_LayerToKMZ.kmz',
+
+			 {preserveViewport:true}
+			);
+
+RetailCenters = new google.maps.KmlLayer('https://sites.google.com/site/kmlfiles7/retailcenters/Retail_Centers_LayerToKMZ.kmz',
+			 {preserveViewport:true}
+			);
+
+BufferZone.setMap(map);
+
+var listener1 = google.maps.event.addListener(BufferZone, 'metadata_changed', function() {
+  google.maps.event.clearListeners(BufferZone, 'metadata_changed');
+  RetailCenters.setMap(map);
+  
+    var listener2 = google.maps.event.addListener(RetailCenters, 'metadata_changed', function() {
+      google.maps.event.clearListeners(RetailCenters, 'metadata_changed');
+
+   });
+    
+  });
+      }
+    </script>
+  </head>
+  <body onload="initialize()">
+   
+  <h1>BigBuck's Retail Centers and 5 Mile Buffer Zones</h1>
+   <div id="map_canvas" style="width:100%; height:100%"></div>
+	<div id="footer">
+	 <a href="http://sites.google.com/site/cramergeog12">Laurence Cramer</a>
+   | &nbsp;
+    <a href="http://www.foothill.edu/fac/klenkeit/gis/">Foothill College GeoSpatial Technology Certificate Program</a> 
+	| &nbsp; <a href ="http://www.foothill.edu/">Foothill College</a>
+	</div>
+	<h2>About this map</h2>
+	<div id="about">
+	This map shows the location of BigBuck's retail center locations and a five mile buffer zone around those locations. 
+   These retail centers were selected based on their proximity to census tracts that have over 20% of the population in 
+   the target demographic block of males aged 22 to 39. This map was created as part of the GEOG 12 class at <a href ="http://www.foothill.edu/">Foothill College</a> for the 
+   <a href="http://www.foothill.edu/fac/klenkeit/gis/">Foothill College GeoSpatial Technology Certificate Program</a>.
+   Further examples of work created by Laurence Cramer can be found at his <a href="http://sites.google.com/site/cramergeog12">E-Portfolio</a>
+	</div>
+  </body>
+</html>
+
